@@ -37,22 +37,22 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         View view=LayoutInflater.from ( parent.getContext () ).inflate ( R.layout.layout_item, parent, false );
         ViewHolder vh=new ViewHolder ( view );
         if (preferencesBasket == null) {
-            preferencesBasket=parent.getContext ().getSharedPreferences ( "NICE_BASKET", Context.MODE_PRIVATE );
+            preferencesBasket=parent.getContext ().getSharedPreferences ( "BASKET", Context.MODE_PRIVATE );
         }
         if (preferencesPlus == null) {
-            preferencesPlus=parent.getContext ().getSharedPreferences ( "NICE_PLUS", Context.MODE_PRIVATE );
+            preferencesPlus=parent.getContext ().getSharedPreferences ( "PLUS", Context.MODE_PRIVATE );
         }
         if (preferencesMinus == null) {
-            preferencesMinus=parent.getContext ().getSharedPreferences ( "NICE_MINUS", Context.MODE_PRIVATE );
+            preferencesMinus=parent.getContext ().getSharedPreferences ( "MINUS", Context.MODE_PRIVATE );
         }
         if (preferencesSum == null) {
-            preferencesSum=parent.getContext ().getSharedPreferences ( "NICE_SUM", Context.MODE_PRIVATE );
+            preferencesSum=parent.getContext ().getSharedPreferences ( "SUM", Context.MODE_PRIVATE );
         }
         if (preferencesNumberSum == null) {
-            preferencesNumberSum=parent.getContext ().getSharedPreferences ( "NICE_NUMBER_SUM", Context.MODE_PRIVATE );
+            preferencesNumberSum=parent.getContext ().getSharedPreferences ( "NUMBER_SUM", Context.MODE_PRIVATE );
         }
         if (preferencesImageLike == null) {
-            preferencesImageLike=parent.getContext ().getSharedPreferences ( "NICE_IMAGE_LIKE", Context.MODE_PRIVATE );
+            preferencesImageLike=parent.getContext ().getSharedPreferences ( "IMAGE_LIKE", Context.MODE_PRIVATE );
         }
         return vh;
     }
