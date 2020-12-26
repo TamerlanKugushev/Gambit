@@ -9,7 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
 
-    <color name="color_for_action_bar">#E3128F</color>
-    <color name="background_for_price">#0A000000</color>
-    <color name="recycler_view_item_swipe_left_background">#43AAAAAA</color>
+    <color name="color_action_bar">#E3128F</color>
+    <color name="background_price">#0A000000</color>
+    <color name="item_swipe_left_background">#43AAAAAA</color>
 </resources>
