@@ -25,7 +25,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     private SharedPreferences preferencesMinus;
     private SharedPreferences preferencesSum;
     private SharedPreferences preferencesNumberSum;
-    private SharedPreferences preferencesImageLike;
+    private SharedPreferences preferencesFavorites;
 
     public RecyclerAdapter(List<Product> productList) {
         this.productList = productList;
@@ -51,8 +51,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         if (preferencesNumberSum == null) {
             preferencesNumberSum=parent.getContext ().getSharedPreferences ( "NUMBER_SUM", Context.MODE_PRIVATE );
         }
-        if (preferencesImageLike == null) {
-            preferencesImageLike=parent.getContext ().getSharedPreferences ( "IMAGE_LIKE", Context.MODE_PRIVATE );
+        if (preferencesFavorites == null) {
+            preferencesFavorites =parent.getContext ().getSharedPreferences ( "IMAGE_LIKE", Context.MODE_PRIVATE );
         }
         return vh;
     }
@@ -146,7 +146,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             sum=preferencesSum.getBoolean ( String.valueOf ( currentProduct.getId () ), true );
             number=preferencesNumberSum.getInt ( String.valueOf ( currentProduct.getId () ), 1 );
             textSum.setText ( String.valueOf ( number ) );
-            imageLikeBool=preferencesImageLike.getBoolean ( String.valueOf ( currentProduct.getId () ), true );
+            imageLikeBool= preferencesFavorites.getBoolean ( String.valueOf ( currentProduct.getId () ), true );
 
 
             String imageUrl= product.getImage ();
@@ -180,7 +180,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 textSum.setVisibility ( View.GONE );
             }
 
-            if (preferencesImageLike.getBoolean ( String.valueOf ( currentProduct.getId () ), imageLikeBool )) {
+            if (preferencesFavorites.getBoolean ( String.valueOf ( currentProduct.getId () ), imageLikeBool )) {
                 imageLike.setImageResource ( R.drawable.ic_unlike );
             } else {
                 imageLike.setImageResource ( R.drawable.ic_like );
@@ -222,7 +222,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         }
 
         public void saveDataImageLike( String id, boolean dataToSave ) {
-            SharedPreferences.Editor editor=preferencesImageLike.edit ();
+            SharedPreferences.Editor editor= preferencesFavorites.edit ();
             editor.putBoolean ( id, dataToSave );
             editor.apply ();
         }
