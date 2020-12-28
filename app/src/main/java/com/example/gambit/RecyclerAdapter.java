@@ -69,13 +69,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imageFood;
-        private TextView titleFood;
-        private Button btnPrice;
-        private Button btnPlus;
-        private Button btnMinus;
+        private Button productPrice;
+        private Button buttonPlus;
+        private Button buttonMinus;
+        private ImageView productImage;
+        private TextView productTitle;
+        private Button productBasket;
         private TextView textSum;
-        private Button btnBasket;
         private Product currentProduct;
         boolean basket;
         boolean plus;
@@ -83,20 +83,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         boolean sum;
         boolean imageLikeBool;
         int number=1;
-        private ImageView imageLike;
+        private ImageView productFavorites;
         private SwipeLayout swipeLayout;
 
 
         public ViewHolder( @NonNull View itemView ) {
             super ( itemView );
-            imageFood=itemView.findViewById ( R.id.imageFood );
-            titleFood=itemView.findViewById ( R.id.titleFood );
-            btnPrice=itemView.findViewById ( R.id.btn_price );
-            btnMinus=itemView.findViewById ( R.id.btnMinus );
-            btnPlus=itemView.findViewById ( R.id.btnPlus );
+            productImage =itemView.findViewById ( R.id.imageFood );
+            productTitle =itemView.findViewById ( R.id.titleFood );
+            productPrice =itemView.findViewById ( R.id.btn_price );
+            buttonMinus =itemView.findViewById ( R.id.btnMinus );
+            buttonPlus =itemView.findViewById ( R.id.btnPlus );
             textSum=itemView.findViewById ( R.id.textSum );
-            btnBasket=itemView.findViewById ( R.id.btnBasket );
-            imageLike=itemView.findViewById ( R.id.trash );
+            productBasket =itemView.findViewById ( R.id.btnBasket );
+            productFavorites =itemView.findViewById ( R.id.trash );
             swipeLayout=itemView.findViewById ( R.id.swipe );
 
             btnBasketClick ();
@@ -104,29 +104,29 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         }
 
         public void btnBasketClick() {
-            btnBasket.setOnClickListener ( new View.OnClickListener () {
+            productBasket.setOnClickListener (new View.OnClickListener () {
                 @Override
                 public void onClick( View view ) {
                     if (preferencesBasket.getBoolean ( String.valueOf ( currentProduct.getId () ), false )) {
-                        btnBasket.setVisibility ( View.VISIBLE );
+                        productBasket.setVisibility ( View.VISIBLE );
                         saveDataBtnBasket ( String.valueOf ( currentProduct.getId () ), false );
 
-                        btnPlus.setVisibility ( View.VISIBLE );
+                        buttonPlus.setVisibility ( View.VISIBLE );
                         saveDataPlus ( String.valueOf ( currentProduct.getId () ), false );
 
-                        btnMinus.setVisibility ( View.VISIBLE );
+                        buttonMinus.setVisibility ( View.VISIBLE );
                         saveDataMinus ( String.valueOf ( currentProduct.getId () ), false );
 
                         textSum.setVisibility ( View.VISIBLE );
                         saveDataTextSum ( String.valueOf ( currentProduct.getId () ), false );
                     } else {
-                        btnBasket.setVisibility ( View.GONE );
+                        productBasket.setVisibility ( View.GONE );
                         saveDataBtnBasket ( String.valueOf ( currentProduct.getId () ), true );
 
-                        btnPlus.setVisibility ( View.VISIBLE );
+                        buttonPlus.setVisibility ( View.VISIBLE );
                         saveDataPlus ( String.valueOf ( currentProduct.getId () ), true );
 
-                        btnMinus.setVisibility ( View.VISIBLE );
+                        buttonMinus.setVisibility ( View.VISIBLE );
                         saveDataMinus ( String.valueOf ( currentProduct.getId () ), true );
 
                         textSum.setVisibility ( View.VISIBLE );
@@ -152,26 +152,26 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             String imageUrl= product.getImage ();
             Picasso.with ( itemView.getContext () )
                     .load ( imageUrl )
-                    .into ( imageFood );
-            titleFood.setText ( product.getName () );
-            btnPrice.setText ( String.valueOf ( product.getPrice () + "₽" ) );
+                    .into (productImage);
+            productTitle.setText ( product.getName () );
+            productPrice.setText ( String.valueOf ( product.getPrice () + "₽" ) );
 
             if (preferencesBasket.getBoolean ( String.valueOf ( currentProduct.getId () ), false )) {
-                btnBasket.setVisibility ( View.GONE );
+                productBasket.setVisibility ( View.GONE );
             } else {
-                btnBasket.setVisibility ( View.VISIBLE );
+                productBasket.setVisibility ( View.VISIBLE );
             }
 
             if (preferencesPlus.getBoolean ( String.valueOf ( currentProduct.getId () ), false )) {
-                btnPlus.setVisibility ( View.VISIBLE );
+                buttonPlus.setVisibility ( View.VISIBLE );
             } else {
-                btnPlus.setVisibility ( View.GONE );
+                buttonPlus.setVisibility ( View.GONE );
             }
 
             if (preferencesPlus.getBoolean ( String.valueOf ( currentProduct.getId () ), false )) {
-                btnMinus.setVisibility ( View.VISIBLE );
+                buttonMinus.setVisibility ( View.VISIBLE );
             } else {
-                btnMinus.setVisibility ( View.GONE );
+                buttonMinus.setVisibility ( View.GONE );
             }
 
             if (preferencesSum.getBoolean ( String.valueOf ( currentProduct.getId () ), false )) {
@@ -181,9 +181,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             }
 
             if (preferencesFavorites.getBoolean ( String.valueOf ( currentProduct.getId () ), imageLikeBool )) {
-                imageLike.setImageResource ( R.drawable.ic_unlike );
+                productFavorites.setImageResource ( R.drawable.ic_unlike );
             } else {
-                imageLike.setImageResource ( R.drawable.ic_like );
+                productFavorites.setImageResource ( R.drawable.ic_like );
             }
 
             clickerPlus ();
@@ -240,11 +240,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 @Override
                 public void onOpen( SwipeLayout layout ) {
                     if (imageLikeBool) {
-                        imageLike.setImageResource ( R.drawable.ic_like );
+                        productFavorites.setImageResource ( R.drawable.ic_like );
                         imageLikeBool = false;
 
                     } else {
-                        imageLike.setImageResource ( R.drawable.ic_unlike );
+                        productFavorites.setImageResource ( R.drawable.ic_unlike );
                         imageLikeBool = true;
                     }
                     saveDataImageLike ( String.valueOf ( currentProduct.getId () ), imageLikeBool );
@@ -278,7 +278,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         }
 
         public void clickerPlus() {
-            btnPlus.setOnClickListener ( new View.OnClickListener () {
+            buttonPlus.setOnClickListener (new View.OnClickListener () {
                 @Override
                 public void onClick( View view ) {
                     number=Integer.parseInt ( textSum.getText ().toString () ) + 1;
@@ -289,7 +289,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         }
 
         public void clickerMinus() {
-            btnMinus.setOnClickListener ( new View.OnClickListener () {
+            buttonMinus.setOnClickListener (new View.OnClickListener () {
                 @Override
                 public void onClick( View view ) {
                     if (Integer.parseInt ( textSum.getText ().toString () ) > 0) {
@@ -299,12 +299,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
                         if (Integer.parseInt ( textSum.getText ().toString () ) == 0) {
                             textSum.setVisibility ( View.GONE );
-                            btnPlus.setVisibility ( View.GONE );
-                            btnMinus.setVisibility ( View.GONE );
+                            buttonPlus.setVisibility ( View.GONE );
+                            buttonMinus.setVisibility ( View.GONE );
 
                             number=1;
 
-                            btnBasket.setVisibility ( View.VISIBLE );
+                            productBasket.setVisibility ( View.VISIBLE );
                             saveDataBtnBasket ( String.valueOf ( currentProduct.getId () ), false );
                             saveDataNumberSum ( String.valueOf ( currentProduct.getId () ), number );
                             saveDataPlus ( String.valueOf ( currentProduct.getId () ), false );
